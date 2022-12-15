@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,17 +14,6 @@ use App\Models\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('index',[
-        'user' => User::first()
-    ]);
-});
-
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('contact', function () {
-    return view('contact');
-});
+// route::get('/',StudentController::class);
+Route::get('/create',[StudentController::class,'create'])->name('create');
+Route::post('/store',[StudentController::class,'store'])->name('store');

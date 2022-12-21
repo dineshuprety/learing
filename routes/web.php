@@ -15,7 +15,11 @@ use App\Http\Controllers\StudentController;
 |
 */
 // route::get('/',StudentController::class);
-Route::get('/create',[StudentController::class,'create'])->name('create');
-Route::post('/store',[StudentController::class,'store'])->name('store');
-Route::get('/edit/{student}',[StudentController::class,'edit'])->name('edit');
-Route::post('/update/{student}',[StudentController::class,'update'])->name('update');
+Route::prefix('student')->group(function () {
+    Route::get('/', [StudentController::class, 'index'])->name('index');
+    Route::get('/create', [StudentController::class, 'create'])->name('create');
+    Route::post('/store', [StudentController::class, 'store'])->name('store');
+    Route::get('/edit/{student}', [StudentController::class, 'edit'])->name('edit');
+    Route::post('/update/{student}', [StudentController::class, 'update'])->name('update');
+    Route::get('/delete/{student}', [StudentController::class, 'delete'])->name('delete');
+});

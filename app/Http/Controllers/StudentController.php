@@ -26,12 +26,21 @@ class StudentController extends Controller
     //     dd($classes);
     // }
 
+    public function index()
+    {
+        $students = Student::query()->with('class')->get();
+        return view('index',[
+            'students' => $students
+        ]);
+    }
+    
+
     public function create()
     {
         // get all classes
         $classes = Level::select('id', 'name')->get();
         // return blade
-        return view('index', [
+        return view('create', [
             'classes' => $classes
         ]);
     }
@@ -74,7 +83,14 @@ class StudentController extends Controller
         'name' => $request->name,
        ]);
 
-       return redirect(route('create'));
+       return redirect(route('index'));
+    }
+
+    public function delete(Student $student)
+    {
+        $student->delete();
+
+        return \redirect(route('index'));
     }
 
     
